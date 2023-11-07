@@ -10,13 +10,16 @@ const tmdbApi = {
     axiosClient.get(
         tmdbEndpoints.mediaDetail({ mediaType, page})
     ),
-    mediaGenre: async ({ mediaType }) => await axiosClient.get(
+    mediaGenres: async ({ mediaType }) => await axiosClient.get(
         tmdbEndpoints.mediaGenres({ mediaType })
     ),
     mediaCredits: async ({mediaType, mediaId}) => await axiosClient.get(
         tmdbEndpoints.mediaCredits({mediaType, mediaId})
     ),
     mediaVideos: async ({mediaType, mediaId}) => await axiosClient.get(
+        tmdbEndpoints.mediaVideos({mediaType, mediaId})
+
+    ), mediaImages: async ({mediaType, mediaId}) => await axiosClient.get(
         tmdbEndpoints.mediaVideos({mediaType, mediaId})
     ),
     mediaRecommend: async ({mediaType, mediaId}) => await axiosClient.get(

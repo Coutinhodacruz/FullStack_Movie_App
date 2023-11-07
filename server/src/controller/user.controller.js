@@ -35,16 +35,75 @@ const signUp = async (req, res) => {
   }
 };
 const signin = async (req, res) => {
-    try{
-        const {username, password} = req.body;
+  try {
+    const { username, password } = req.body;
 
-        const user = await userModel.findOne({ username }).select("username password salt id display");
+    const user = await userModel
+      .findOne({ username })
+      .select("username password salt id display");
 
-        if(!user) return responseHandler.badrequest(req, "User not exist")
-        
-        if (!user.validPassword(password)) return responseHandler.badrequest(res,
-            "Wrong passowrd")
-    }catch{
-       responseHandler.error(res)
-    }
-}
+    if (!user) return responseHandler.badrequest(req, "User not exist");
+
+    if (!user.validPassword(password))
+      return responseHandler.badrequest(res, "Wrong passowrd");
+
+    const token = jsonwebtoken.sign(
+      { data: user.id },
+      process.env.TOKEN_SECRET,
+      { expiresIn: "24h" }
+    );
+
+    user.password = undefined;
+    user.salt = undefined;
+
+    responseHandler.created(res, {
+      token,
+      ...user._doc,
+      id: user.id,
+    });
+  } catch {
+    responseHandler.error(res);
+  }
+};
+
+const updatePassword = async (req, res) => {
+  try {
+    const { password, newPassword } = req.body;
+
+    const user = await userModel
+      .findById(req.user.id)
+      .select("passord if salt");
+
+    if (!user) return responseHandler.unauthorize(res);
+
+    if (!user.validPassword(password))
+      return responseHandler.badrequest(res, "Wrong Password");
+
+    user.setPassword(newPassword);
+
+    await user.save();
+
+    responseHandler.ok(res);
+  } catch {
+    responseHandler.error(res);
+  }
+};
+
+const getInfo = async (req, res) => {
+  try {
+    const user = await userModel.findById(req.user.id);
+
+    if (!user) return responseHandler.notfound(res);
+
+    responseHandler.ok(res, user);
+  } catch {
+    responseHandler.error(res);
+  }
+};
+
+export default {
+  signUp,
+  signin,
+  getInfo,
+  updatePassword,
+};
