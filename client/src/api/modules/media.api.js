@@ -19,7 +19,7 @@ const mediaApi = {
     getDetail: async({ mediaType, mediaId }) => {
         try{
             const response = await publicClient.get(
-                mediaEndpoint.list({ mediaType, mediaId })
+                mediaEndpoint.detail({ mediaType, mediaId })
             )
             return { response };
         }catch (err) { return { err}; }
@@ -27,7 +27,7 @@ const mediaApi = {
     search: async({ mediaType, query, page }) => {
         try{
             const response = await publicClient.get(
-                mediaEndpoint.list({ mediaType, query, page })
+                mediaEndpoint.search({ mediaType, query, page })
             )
             return { response };
         }catch (err) { return { err}; }
