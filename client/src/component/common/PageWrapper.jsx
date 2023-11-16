@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { setAppState} from "../../redux/features/appStateSlice";
 
 const PageWrapper = ({state, children }) => {
-    const disPatch = useDispatch()
+    const disPatch = useDispatch();
 
     useEffect(() =>{
       window.scrollTo(0, 0);

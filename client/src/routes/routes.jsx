@@ -4,7 +4,7 @@ import FavoriteList from "../pages/FavoriteList";
 import MediaDetails from "../pages/MediaDetails";
 import MediaList from "../pages/MediaList";
 import MediaSearch from "../pages/MediaSearch";
-import PasswordUpadate from "../pages/PasswordUpadate";
+import PasswordUpdate from "../pages/PasswordUpdate";
 import ReviewList from "../pages/ReviewList";
 import ProtectedPage from "../component/common/ProtectedPage";
 
@@ -39,7 +39,7 @@ const routes = [
     path: "/password-update",
     element: (
       <ProtectedPage>
-        <PasswordUpadate />
+        <PasswordUpdate />
       </ProtectedPage>
     ),
     state: "password.update",
