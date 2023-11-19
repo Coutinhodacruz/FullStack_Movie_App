@@ -5,7 +5,7 @@ const Logo = () => {
 
   return (
     <Typography fontWeight="700" fontSize="1.7rem">
-      Coutinho<span style={{ color: theme.palette.primary.main }}>Flix</span>
+      Da<span style={{ color: theme.palette.primary.main }}>Cruz</span>
     </Typography>
   );
 };
