@@ -12,6 +12,7 @@ const AutoSwiper = ({ children }) => {
           lg: "20.5%"
         }
       }
+      
     }}>
       <Swiper
         slidesPerView="auto"
